@@ -626,16 +626,332 @@ function renderProductForm(productKey) {
   }
 }
 
-// Portfolio Filter Logic (Matching Exact Tabs in Image 4: Semua, Stempel, Undangan, Spanduk, Stiker A3+)
+// Portfolio Data Store (Real photos uploaded from workshop)
+const portfolioData = [
+  {
+    id: 1,
+    title: 'Signage & Huruf Timbul Akrilik Gedung SMK Muhammadiyah Gisting',
+    category: 'signage',
+    categoryName: 'Signage & Plang',
+    description: 'Plang identitas gedung bertingkat presisi tinggi dengan huruf timbul akrilik laser-cut dan plat solid tahan terpaan cuaca outdoor.',
+    tag: 'Akrilik Solid • Laser Cut',
+    image: 'assets/images/portfolio-signage-gisting.jpg',
+    badge: 'Signage Gedung'
+  },
+  {
+    id: 2,
+    title: 'Map Raport K13 & Merdeka Emboss Foil Emas Tut Wuri Handayani',
+    category: 'map',
+    categoryName: 'Map & Dokumen',
+    description: 'Sampul raport & ijazah hardcover bahan kulit ASE berkualitas prima (SDN 1 Kalibening Raya), hotprint foil emas Tut Wuri Handayani, dan siku logam pengaman.',
+    tag: 'Hardcover ASE • Foil Emas Timbul',
+    image: 'assets/images/portfolio-map-raport.jpg',
+    badge: 'SDN 1 Kalibening'
+  },
+  {
+    id: 3,
+    title: 'Prasasti & Nisan Granit Hitam Grafir Kaligrafi Emas',
+    category: 'prasasti',
+    categoryName: 'Prasasti Granit',
+    description: 'Batu granit alam hitam pekat berkualitas tinggi dengan ukiran pahat grafir kaligrafi ayat suci presisi tinggi dan polesan cat emas awet anti luntur.',
+    tag: 'Batu Granit Murni • Grafir Kaligrafi 24K',
+    image: 'assets/images/portfolio-prasasti-granit.jpg',
+    badge: 'Grafir Granit Alam'
+  },
+  {
+    id: 4,
+    title: 'Buku Yasin & Majmu\' Syarif Hardcover Gold Eksklusif',
+    category: 'undangan',
+    categoryName: 'Undangan & Yasin',
+    description: 'Buku Yasin & tahlil hardcover ornamen kubah poly emas mewah dengan lafadz Allah timbul, pelindung siku ornamen, serta pita pembatas rumbai tasbih.',
+    tag: 'Hardcover Gold • Rumbai Tasbih',
+    image: 'assets/images/portfolio-buku-yasin.jpg',
+    badge: 'Buku Doa & Yasin'
+  },
+  {
+    id: 5,
+    title: 'Suite Undangan Pernikahan Custom Gold Foil & Emboss',
+    category: 'undangan',
+    categoryName: 'Undangan & Yasin',
+    description: 'Paket kartu undangan pernikahan estetik mewah dengan hotprint poly emas berkilau, floral ornamen emboss timbul, amplop custom tebal, dan pita segel modern.',
+    tag: 'Jasmine 230gsm • Poly Emas Mewah',
+    image: 'assets/images/portfolio-undangan-nikah.jpg',
+    badge: 'Wedding Suite'
+  }
+];
+
+const portfolioState = {
+  activeFilter: 'all',
+  currentPage: 1,
+  itemsPerPage: 4
+};
+
+function getFilteredPortfolio() {
+  if (portfolioState.activeFilter === 'all') {
+    return portfolioData;
+  }
+  return portfolioData.filter(item => item.category === portfolioState.activeFilter);
+}
+
+function renderPortfolio() {
+  const grid = document.getElementById('portfolio-grid');
+  const pageIndicatorTop = document.getElementById('portfolio-page-indicator-top');
+  const prevBtnTop = document.getElementById('portfolio-prev-btn-top');
+  const nextBtnTop = document.getElementById('portfolio-next-btn-top');
+  const prevBtnBottom = document.getElementById('portfolio-prev-btn');
+  const nextBtnBottom = document.getElementById('portfolio-next-btn');
+  const dotsContainer = document.getElementById('portfolio-dots');
+  const infoText = document.getElementById('portfolio-info-text');
+
+  if (!grid) return;
+
+  const filtered = getFilteredPortfolio();
+  const totalPages = Math.max(1, Math.ceil(filtered.length / portfolioState.itemsPerPage));
+
+  // Ensure current page is in valid bounds
+  if (portfolioState.currentPage > totalPages) {
+    portfolioState.currentPage = totalPages;
+  }
+  if (portfolioState.currentPage < 1) {
+    portfolioState.currentPage = 1;
+  }
+
+  const startIdx = (portfolioState.currentPage - 1) * portfolioState.itemsPerPage;
+  const currentItems = filtered.slice(startIdx, startIdx + portfolioState.itemsPerPage);
+
+  // Update navigation button states
+  const isFirstPage = portfolioState.currentPage <= 1;
+  const isLastPage = portfolioState.currentPage >= totalPages;
+
+  if (prevBtnTop) prevBtnTop.disabled = isFirstPage;
+  if (nextBtnTop) nextBtnTop.disabled = isLastPage;
+  if (prevBtnBottom) prevBtnBottom.disabled = isFirstPage;
+  if (nextBtnBottom) nextBtnBottom.disabled = isLastPage;
+
+  if (pageIndicatorTop) {
+    pageIndicatorTop.textContent = `Hal ${portfolioState.currentPage} / ${totalPages}`;
+  }
+
+  if (infoText) {
+    infoText.textContent = `Menampilkan ${currentItems.length} dari ${filtered.length} hasil karya cetak (Halaman ${portfolioState.currentPage} dari ${totalPages})`;
+  }
+
+  // Render Dots
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    for (let p = 1; p <= totalPages; p++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Halaman ${p}`);
+      dot.className = p === portfolioState.currentPage
+        ? 'w-7 h-2.5 rounded-full bg-emerald-500 shadow-sm transition-all duration-300'
+        : 'w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-zinc-700 hover:bg-emerald-400 dark:hover:bg-emerald-600 transition-all duration-300';
+      dot.addEventListener('click', () => {
+        if (portfolioState.currentPage !== p) {
+          portfolioState.currentPage = p;
+          animatePortfolioTransition();
+        }
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  // Generate Cards HTML
+  // Bento Layout logic:
+  // If 4 items: [7 cols, 5 cols, 4 cols, 8 cols] matching Image 4
+  // If 1 item: 12 cols (horizontal highlight card)
+  // If 2 items: 6 cols each
+  // If 3 items: 4 cols each
+  let cardsHtml = '';
+  const totalInPage = currentItems.length;
+
+  currentItems.forEach((item, index) => {
+    let colClass = '';
+    let imgHeight = 'h-64 sm:h-72 md:h-80';
+
+    if (totalInPage === 1) {
+      cardsHtml += `
+        <div class="portfolio-card cursor-pointer group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-xl hover:border-emerald-500/40 dark:hover:border-emerald-500/40 transition-all duration-300 md:col-span-12 grid grid-cols-1 md:grid-cols-12" data-item-id="${item.id}">
+          <div class="relative overflow-hidden h-72 sm:h-96 md:h-[400px] bg-gray-100 dark:bg-zinc-800 md:col-span-7">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 sm:p-5">
+              <span class="text-xs font-mono font-bold text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
+                Lihat Foto Penuh 🔍
+              </span>
+              <span class="text-[10px] font-mono font-bold text-emerald-300 bg-emerald-950/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/30">
+                ${item.badge}
+              </span>
+            </div>
+            <div class="absolute top-3 left-3 sm:top-4 sm:left-4">
+              <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-white/95 dark:bg-black/85 backdrop-blur-md text-emerald-800 dark:text-[#00E599] border border-emerald-500/30 shadow-sm">
+                ${item.categoryName}
+              </span>
+            </div>
+          </div>
+          <div class="p-6 sm:p-8 md:p-10 md:col-span-5 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-[#00E599] block">${item.tag}</span>
+              <h3 class="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition leading-snug">
+                ${item.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                ${item.description}
+              </p>
+            </div>
+            <div class="pt-4 border-t border-gray-100 dark:border-zinc-800/80 flex items-center justify-between text-xs font-mono font-bold text-emerald-600 dark:text-[#00E599]">
+              <span>KLIK UNTUK MELIHAT FOTO UTUH</span>
+              <span class="text-base transform group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (totalInPage === 2) {
+      colClass = 'md:col-span-6';
+    } else if (totalInPage === 3) {
+      colClass = 'md:col-span-4';
+    } else {
+      // 4 items exact Bento layout matching Image 4
+      const bentoLayout = ['md:col-span-7', 'md:col-span-5', 'md:col-span-4', 'md:col-span-8'];
+      colClass = bentoLayout[index % 4];
+    }
+
+    cardsHtml += `
+      <div class="portfolio-card cursor-pointer group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-xl hover:border-emerald-500/40 dark:hover:border-emerald-500/40 transition-all duration-300 flex flex-col ${colClass}" data-item-id="${item.id}">
+        <div class="relative overflow-hidden ${imgHeight} bg-gray-100 dark:bg-zinc-800 shrink-0">
+          <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-3 sm:p-4">
+            <span class="text-[10px] sm:text-xs font-mono font-bold text-white bg-black/60 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full border border-white/20">
+              Lihat Foto Penuh 🔍
+            </span>
+            <span class="text-[10px] font-mono font-bold text-emerald-300 bg-emerald-950/80 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/30">
+              ${item.badge}
+            </span>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-white/95 dark:bg-black/85 backdrop-blur-md text-emerald-800 dark:text-[#00E599] border border-emerald-500/30 shadow-sm">
+              ${item.categoryName}
+            </span>
+          </div>
+        </div>
+        <div class="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <span class="text-[10px] sm:text-[11px] font-mono font-semibold text-emerald-600 dark:text-[#00E599] block">${item.tag}</span>
+            <h3 class="text-sm sm:text-base lg:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition line-clamp-2">
+              ${item.title}
+            </h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 sm:line-clamp-3">
+              ${item.description}
+            </p>
+          </div>
+          <div class="pt-3 border-t border-gray-100 dark:border-zinc-800/80 flex items-center justify-between text-[11px] font-mono text-gray-400 group-hover:text-emerald-500 transition">
+            <span>Detail & Spesifikasi</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  grid.innerHTML = cardsHtml;
+
+  // Bind click event to each card to open Lightbox Modal
+  grid.querySelectorAll('.portfolio-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.getAttribute('data-item-id'));
+      const foundItem = portfolioData.find(p => p.id === id);
+      if (foundItem) {
+        openPortfolioModal(foundItem);
+      }
+    });
+  });
+}
+
+function animatePortfolioTransition() {
+  const grid = document.getElementById('portfolio-grid');
+  if (!grid) {
+    renderPortfolio();
+    return;
+  }
+  grid.style.opacity = '0';
+  grid.style.transform = 'translateY(6px)';
+  setTimeout(() => {
+    renderPortfolio();
+    grid.style.opacity = '1';
+    grid.style.transform = 'translateY(0)';
+  }, 140);
+}
+
+function openPortfolioModal(item) {
+  const modal = document.getElementById('portfolio-modal');
+  const modalImg = document.getElementById('portfolio-modal-img');
+  const modalBadge = document.getElementById('portfolio-modal-badge');
+  const modalTag = document.getElementById('portfolio-modal-tag');
+  const modalTitle = document.getElementById('portfolio-modal-title');
+  const modalDesc = document.getElementById('portfolio-modal-desc');
+  const modalWaBtn = document.getElementById('portfolio-modal-wa-btn');
+
+  if (!modal) return;
+
+  if (modalImg) {
+    modalImg.src = item.image;
+    modalImg.alt = item.title;
+  }
+  if (modalBadge) modalBadge.textContent = item.badge || item.categoryName;
+  if (modalTag) modalTag.textContent = item.tag;
+  if (modalTitle) modalTitle.textContent = item.title;
+  if (modalDesc) modalDesc.textContent = item.description;
+  if (modalWaBtn) {
+    modalWaBtn.href = getWhatsAppUrl(`Halo WIDURI Studio Cetak, saya tertarik dengan hasil cetak di portofolio:\n*${item.title}*\n\nBisa minta informasi spesifikasi dan estimasi harga untuk pesanan serupa? Terima kasih.`);
+  }
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  setTimeout(() => {
+    modal.classList.remove('opacity-0');
+    const card = document.getElementById('portfolio-modal-card');
+    if (card) {
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+    }
+  }, 20);
+}
+
+function closePortfolioModal() {
+  const modal = document.getElementById('portfolio-modal');
+  const card = document.getElementById('portfolio-modal-card');
+  if (!modal) return;
+
+  if (card) {
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+  }
+  modal.classList.add('opacity-0');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }, 200);
+}
+
 function initPortfolio() {
   const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
-  const items = document.querySelectorAll('.portfolio-item');
-  
+  const prevBtnTop = document.getElementById('portfolio-prev-btn-top');
+  const nextBtnTop = document.getElementById('portfolio-next-btn-top');
+  const prevBtnBottom = document.getElementById('portfolio-prev-btn');
+  const nextBtnBottom = document.getElementById('portfolio-next-btn');
+  const modalClose = document.getElementById('portfolio-modal-close');
+  const modal = document.getElementById('portfolio-modal');
+  const grid = document.getElementById('portfolio-grid');
+
+  // Filter Buttons
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.getAttribute('data-filter');
-      state.activePortfolioFilter = filter;
-      
+      portfolioState.activeFilter = filter;
+      portfolioState.currentPage = 1; // Reset to page 1 on filter switch
+
       filterBtns.forEach(b => {
         if (b === btn) {
           b.classList.add('bg-emerald-500', 'text-white', 'shadow-sm');
@@ -645,17 +961,72 @@ function initPortfolio() {
           b.classList.add('bg-white', 'dark:bg-[#0F1D17]', 'text-gray-600', 'dark:text-gray-300', 'border', 'border-gray-200', 'dark:border-zinc-800');
         }
       });
-      
-      items.forEach(item => {
-        const cat = item.getAttribute('data-category');
-        if (filter === 'all' || cat.includes(filter)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+
+      animatePortfolioTransition();
     });
   });
+
+  // Slider Navigation handlers
+  function goPrev() {
+    if (portfolioState.currentPage > 1) {
+      portfolioState.currentPage--;
+      animatePortfolioTransition();
+    }
+  }
+
+  function goNext() {
+    const totalPages = Math.ceil(getFilteredPortfolio().length / portfolioState.itemsPerPage);
+    if (portfolioState.currentPage < totalPages) {
+      portfolioState.currentPage++;
+      animatePortfolioTransition();
+    }
+  }
+
+  if (prevBtnTop) prevBtnTop.addEventListener('click', goPrev);
+  if (nextBtnTop) nextBtnTop.addEventListener('click', goNext);
+  if (prevBtnBottom) prevBtnBottom.addEventListener('click', goPrev);
+  if (nextBtnBottom) nextBtnBottom.addEventListener('click', goNext);
+
+  // Mobile Touch Swipe Gesture Support
+  if (grid) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    grid.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    grid.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      // Only handle horizontal swipe if horizontal movement is larger than vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          goNext(); // Swipe left -> Next page
+        } else {
+          goPrev(); // Swipe right -> Prev page
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Lightbox Modal Controls
+  if (modalClose) modalClose.addEventListener('click', closePortfolioModal);
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closePortfolioModal();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePortfolioModal();
+  });
+
+  // Initial render
+  renderPortfolio();
 }
 
 // Mobile Navigation Drawer Toggle

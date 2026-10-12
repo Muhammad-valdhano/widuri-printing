@@ -403,93 +403,67 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6">
           <div class="space-y-1.5 sm:space-y-2">
             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/40">
-              <span>KURASI HASIL CETAK</span>
+              <span>KURASI HASIL CETAK NYATA</span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Galeri Portofolio</h2>
             <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-xl">
-              Sentuhan presisi pada ragam material kertas premium, stempel flash, dan banner outdoor.
+              Dokumentasi produk cetak: signage akrilik gedung, map raport emboss emas, prasasti granit grafir, majmu' syarif gold, dan kartu undangan custom.
             </p>
           </div>
 
-          <!-- Filter Pills (Scrollable horizontally on mobile, neat and swipable) -->
-          <div class="w-full md:w-auto">
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 w-full md:w-auto">
+          <!-- Controls: Category Filters & Page Navigation -->
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <!-- Filter Pills (Scrollable horizontally on mobile) -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
               <button type="button" data-filter="all" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-sm transition">Semua</button>
-              <button type="button" data-filter="stempel" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Stempel</button>
-              <button type="button" data-filter="undangan" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Undangan</button>
-              <button type="button" data-filter="spanduk" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Spanduk</button>
-              <button type="button" data-filter="stiker" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Stiker A3+</button>
+              <button type="button" data-filter="undangan" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Undangan & Yasin</button>
+              <button type="button" data-filter="signage" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Signage & Plang</button>
+              <button type="button" data-filter="map" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Map Raport</button>
+              <button type="button" data-filter="prasasti" class="portfolio-filter-btn shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Prasasti Granit</button>
+            </div>
+
+            <!-- Quick Arrow Buttons (Desktop) -->
+            <div id="portfolio-top-nav" class="hidden md:flex items-center gap-1.5 shrink-0 pl-2 border-l border-gray-200 dark:border-zinc-800">
+              <span id="portfolio-page-indicator-top" class="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300">1 / 2</span>
+              <button id="portfolio-prev-btn-top" type="button" aria-label="Halaman sebelumnya" class="w-8 h-8 rounded-full border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] text-gray-600 dark:text-gray-300 hover:border-emerald-500 hover:text-emerald-500 flex items-center justify-center transition disabled:opacity-30 disabled:cursor-not-allowed">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="portfolio-next-btn-top" type="button" aria-label="Halaman berikutnya" class="w-8 h-8 rounded-full border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] text-gray-600 dark:text-gray-300 hover:border-emerald-500 hover:text-emerald-500 flex items-center justify-center transition disabled:opacity-30 disabled:cursor-not-allowed">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Bento Grid Portfolio Items (Matching 4 items in Image 4) -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5">
-          
-          <!-- Card 1: Top Left (7 columns) - Backdrop Pameran & Event Flexi Korea 440 -->
-          <div data-category="spanduk all" class="portfolio-item md:col-span-7 group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
-            <div class="relative overflow-hidden aspect-[16/9]">
-              <img src="assets/images/portfolio-backdrop.jpg" alt="Backdrop Pameran & Event Flexi Korea 440" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="p-4 sm:p-6 space-y-1 sm:space-y-1.5">
-              <h3 class="text-sm sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
-                Backdrop Pameran & Event Flexi Korea 440
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Kerapatan warna outdoor tahan cuaca dengan tinta UV tahan pudar hingga 2 tahun.
-              </p>
-            </div>
+        <!-- Bento Grid Portfolio Items Container (Rendered dynamically by JS, 4 items per page) -->
+        <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 transition-opacity duration-300 min-h-[460px]">
+          <!-- Dynamic cards rendered by JS -->
+        </div>
+
+        <!-- Bottom Slider / Pagination Controls (Tombol Geser & Dots) -->
+        <div id="portfolio-pagination-bar" class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-zinc-800/80">
+          <!-- Item count status -->
+          <div class="text-xs text-gray-500 dark:text-gray-400 font-medium flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="portfolio-info-text">Menampilkan 4 dari 5 karya cetak</span>
           </div>
 
-          <!-- Card 2: Top Right (5 columns) - Stempel Cap Otomatis Segel -->
-          <div data-category="stempel all" class="portfolio-item md:col-span-5 group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
-            <div class="relative overflow-hidden aspect-[16/9]">
-              <img src="assets/images/portfolio-stempel.jpg" alt="Stempel Cap Otomatis Segel" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="p-4 sm:p-6 space-y-1 sm:space-y-1.5">
-              <h3 class="text-sm sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
-                Stempel Cap Otomatis Segel
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Presisi garis mikro hingga 0.2 pt tanpa bleber.
-              </p>
-            </div>
+          <!-- Pagination Dots (Clickable) -->
+          <div id="portfolio-dots" class="flex items-center gap-2">
+            <!-- Rendered by JS -->
           </div>
 
-          <!-- Card 3: Bottom Left (4 columns) - Suite Undangan Hotprint Gold 22K -->
-          <div data-category="undangan all" class="portfolio-item md:col-span-4 group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
-            <div class="relative overflow-hidden aspect-[4/3]">
-              <img src="assets/images/portfolio-undangan.jpg" alt="Suite Undangan Hotprint Gold 22K" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="p-4 sm:p-6 space-y-1 sm:space-y-1.5">
-              <h3 class="text-sm sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
-                Suite Undangan Hotprint Gold 22K
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Tekstur katun tebal 600 gsm dengan tepian presisi.
-              </p>
-            </div>
+          <!-- Tombol Geser (Slider Action Buttons) -->
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <button id="portfolio-prev-btn" type="button" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] text-gray-700 dark:text-gray-200 hover:border-emerald-500 hover:text-emerald-500 transition disabled:opacity-40 disabled:cursor-not-allowed">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              <span>Geser Sebelumnya</span>
+            </button>
+            <button id="portfolio-next-btn" type="button" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm transition disabled:opacity-40 disabled:cursor-not-allowed">
+              <span>Geser Selanjutnya</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
-
-          <!-- Card 4: Bottom Right (8 columns) - Label Kemasan Vinyl Kiss-Cut Waterproof -->
-          <div data-category="stiker all" class="portfolio-item md:col-span-8 group rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
-            <div class="relative overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-              <img src="assets/images/portfolio-stiker.jpg" alt="Label Kemasan Vinyl Kiss-Cut Waterproof" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="p-4 sm:p-6 space-y-1 sm:space-y-1.5">
-              <h3 class="text-sm sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
-                Label Kemasan Vinyl Kiss-Cut Waterproof
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Tahan air dan gores untuk botol kaca serta toples produk kuliner.
-              </p>
-            </div>
-          </div>
-
         </div>
 
       </div>
@@ -601,6 +575,43 @@
         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
       </svg>
     </button>
+  </div>
+
+  <!-- Portfolio Lightbox Modal (Preview Foto Penuh & Konsultasi) -->
+  <div id="portfolio-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-200">
+    <div id="portfolio-modal-card" class="relative max-w-4xl w-full max-h-[92vh] bg-white dark:bg-[#0F1D17] rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 dark:border-zinc-800 flex flex-col md:flex-row transform transition-transform duration-200 scale-95">
+      
+      <!-- Close Button -->
+      <button id="portfolio-modal-close" type="button" class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition" aria-label="Tutup modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Image Column (Displays full portrait image uncropped) -->
+      <div class="md:w-1/2 bg-black/5 dark:bg-black/40 flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <img id="portfolio-modal-img" src="" alt="" class="max-h-[45vh] md:max-h-[75vh] w-auto max-w-full object-contain rounded-2xl shadow-lg">
+      </div>
+
+      <!-- Info Column -->
+      <div class="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-5 overflow-y-auto">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span id="portfolio-modal-badge" class="inline-block px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/40">KATEGORI</span>
+            <span id="portfolio-modal-tag" class="text-[11px] font-mono text-gray-500 dark:text-gray-400"></span>
+          </div>
+          <h3 id="portfolio-modal-title" class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-snug">Judul Portofolio</h3>
+          <p id="portfolio-modal-desc" class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed"></p>
+        </div>
+
+        <div class="pt-4 border-t border-gray-100 dark:border-zinc-800/80 space-y-2.5">
+          <a id="portfolio-modal-wa-btn" href="#" target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition transform active:scale-95">
+            <span>KONSULTASI CETAK SERUPA VIA WA</span>
+            <span>→</span>
+          </a>
+          <p class="text-[10px] text-gray-400 text-center font-mono">Konsultasikan ukuran, jumlah, dan bahan kustom langsung dengan tim kami</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- Main JavaScript File -->
