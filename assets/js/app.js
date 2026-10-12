@@ -426,10 +426,11 @@ function renderProductForm(productKey) {
 
       <div class="space-y-2">
         <label class="font-mono text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">JUMLAH WARNA TINTA</label>
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
           ${[1, 2, 3].map(w => `
-            <button type="button" data-warna-qty="${w}" class="btn-stempel-warna-qty py-2 px-3 rounded-xl border text-xs font-semibold font-mono transition ${state.stempel.warnaQty === w ? 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 text-emerald-600 dark:text-[#00E599]' : 'border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-gray-600 dark:text-gray-400'}">
-              ${w} Warna ${w > 1 ? `(+${formatRupiah(pricing.stempel.extraColor[w])})` : ''}
+            <button type="button" data-warna-qty="${w}" class="btn-stempel-warna-qty py-2 px-1 sm:px-3 rounded-xl border text-[11px] sm:text-xs font-semibold font-mono transition text-center ${state.stempel.warnaQty === w ? 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 text-emerald-600 dark:text-[#00E599]' : 'border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-gray-600 dark:text-gray-400'}">
+              <span class="block font-bold">${w} Warna</span>
+              <span class="block text-[9px] opacity-80 mt-0.5">${w > 1 ? `+${formatRupiah(pricing.stempel.extraColor[w])}` : 'Standar'}</span>
             </button>
           `).join('')}
         </div>

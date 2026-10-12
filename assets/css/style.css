@@ -43,11 +43,28 @@
   font-family: 'JetBrains Mono', monospace !important;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbars utility for horizontal swipable pills */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Subtle Vertical Grid Lines Overlay */
