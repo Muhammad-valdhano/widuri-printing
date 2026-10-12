@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WIDURI Studio Cetak | Cetak Presisi. Identitas Berkelas.</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              mint: '#00C274',
+              mintDark: '#00E599',
+              darkBg: '#08110D',
+              darkCard: '#0F1D17',
+              darkSubtle: '#14271F',
+              darkBorder: '#192D23'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%2300C274'/></svg>">
+</head>
+<body class="bg-[#F8FAF9] dark:bg-[#08110D] text-[#0F1714] dark:text-[#F4FBF7] transition-theme selection:bg-emerald-500 selection:text-white">
+
+  <!-- Background Subtle Grid Pattern -->
+  <div class="fixed inset-0 pointer-events-none grid-bg-overlay z-0"></div>
+
+  <!-- FLOATING NAVBAR (Pill container floating at top) -->
+  <div class="sticky top-4 z-40 max-w-6xl mx-auto px-4 sm:px-6">
+    <header class="rounded-full bg-white/95 dark:bg-[#0F1D17]/95 border border-gray-100 dark:border-zinc-800/80 shadow-md backdrop-blur-md px-5 py-2.5 flex items-center justify-between transition-theme">
+      
+      <!-- Logo: Dot + WIDURI + STUDIO badge -->
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50 group-hover:scale-125 transition-transform"></span>
+        <span class="text-base sm:text-lg font-black tracking-tight text-gray-900 dark:text-white">WIDURI</span>
+        <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/30">STUDIO</span>
+      </a>
+
+      <!-- Center Links (Pesan Cetak, Pesanan Saya, Chat removed as requested) -->
+      <nav class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium">
+        <a href="#" class="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-[#00E599] font-bold transition">Beranda</a>
+        <a href="#kalkulator" class="px-3.5 py-1.5 rounded-full text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-[#00E599] hover:bg-gray-50 dark:hover:bg-zinc-800/40 transition">Kalkulator</a>
+        <a href="#portofolio" class="px-3.5 py-1.5 rounded-full text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-[#00E599] hover:bg-gray-50 dark:hover:bg-zinc-800/40 transition">Portofolio</a>
+      </nav>
+
+      <!-- Right: Dark Mode Toggle Button (Replaces profile icon as requested) -->
+      <div class="flex items-center">
+        <button id="theme-toggle-btn" type="button" aria-label="Toggle Dark Mode" title="Ganti Mode Tampilan" 
+          class="w-9 h-9 rounded-full flex items-center justify-center border border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900 text-gray-700 dark:text-gray-200 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-sm transition">
+          <!-- Icon injected dynamically by JS -->
+        </button>
+      </div>
+
+    </header>
+  </div>
+
+  <main class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section class="pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 overflow-hidden">
+      
+      <!-- Ambient Glow Behind Right Showcase Card -->
+      <div class="absolute right-0 top-1/4 w-96 h-96 hero-radial-glow pointer-events-none"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
+        
+        <!-- Sub-header Row (Above Hero Headline): Badge on left, Machine counter on right -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <!-- Left Badge Pill -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 text-emerald-800 dark:text-emerald-300 w-fit">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-medium text-[11px] sm:text-xs">
+              Percetakan Mandiri & Terpercaya • Standar Industri <span class="font-mono font-bold text-emerald-600 dark:text-[#00E599]">/ ONLINE WORKSHOP</span>
+            </span>
+          </div>
+
+          <!-- Right Status Indicator -->
+          <div class="flex items-center gap-2 font-mono text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Mesin Aktif: 4 Unit Offset & Digital</span>
+          </div>
+        </div>
+
+        <!-- Main Hero 2-Column Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          
+          <!-- Hero Left Column: Headline, Description & Action Buttons -->
+          <div class="lg:col-span-7 space-y-6">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] text-gray-900 dark:text-white">
+              CETAK PRESISI.<br>
+              <span class="text-emerald-500 dark:text-[#00E599]">IDENTITAS</span><br>
+              BERKELAS.
+            </h1>
+
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-xl font-normal leading-relaxed">
+              Menyelaraskan tradisi cetak manual dengan kalibrasi spektroskopi mutakhir. Hitung harga otomatis dan konsultasikan proofing warna Anda secara langsung.
+            </p>
+
+            <!-- Buttons: HITUNG BIAYA ↓ & PESAN LANGSUNG → -->
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button id="hero-cta-calc" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 dark:bg-[#00C274] dark:hover:bg-[#00df82] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition transform hover:-translate-y-0.5">
+                <span>HITUNG BIAYA</span>
+                <span class="text-sm">↓</span>
+              </button>
+
+              <button id="hero-cta-wa" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-gray-200 dark:border-zinc-700 hover:border-emerald-500 dark:hover:border-emerald-400 bg-white/80 dark:bg-[#0F1D17] text-gray-800 dark:text-gray-200 font-mono text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition">
+                <span>PESAN LANGSUNG</span>
+                <span class="text-sm">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Right Column: Showcase Card with Arch Corner and Exact Badges -->
+          <div class="lg:col-span-5 relative flex justify-center">
+            
+            <div class="relative w-full max-w-md">
+              
+              <!-- Floating Badge Top Left: TOLERANSI MESIN 0.18 mm -->
+              <div class="absolute -top-3.5 -left-3.5 z-20 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#0F1D17]/95 border border-gray-100 dark:border-zinc-800 shadow-xl backdrop-blur-md">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-[#00E599] font-bold font-mono text-xs">
+                  ±
+                </div>
+                <div>
+                  <div class="font-mono text-[9px] font-bold uppercase tracking-wider text-gray-400">TOLERANSI MESIN</div>
+                  <div class="font-mono text-xs font-black text-gray-900 dark:text-white">0.18 mm</div>
+                </div>
+              </div>
+
+              <!-- Main Showcase Image with Asymmetric Corner -->
+              <div class="relative overflow-hidden hero-image-corner border-2 border-emerald-500/20 dark:border-emerald-500/30 shadow-2xl bg-zinc-900 group">
+                <img src="assets/images/hero-proofing.jpg" alt="Screen Proofing dan Kalibrasi Warna" 
+                  class="w-full h-[360px] sm:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700">
+                
+                <!-- Dark Gradient Vignette for Text Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+
+                <!-- Bottom Inset Text Container -->
+                <div class="absolute bottom-4 left-4 right-4 z-10 text-white">
+                  <span class="font-mono text-[10px] font-bold tracking-wider text-emerald-400 uppercase block mb-1">
+                    STUDIO GRAFIKA & SEPARASI
+                  </span>
+                  <h4 class="text-base sm:text-lg font-bold leading-snug">Produksi Harian Offset & Digital</h4>
+                  <p class="text-xs text-gray-300 font-normal">Proofing warna bersertifikat standar</p>
+                </div>
+              </div>
+
+              <!-- Floating Badge Bottom Right: LAYANAN CEPAT 24 Jam Kilat -->
+              <div class="absolute -bottom-3.5 -right-3.5 z-20 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#0F1D17]/95 border border-gray-100 dark:border-zinc-800 shadow-xl backdrop-blur-md">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-[#00E599]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-mono text-[9px] font-bold uppercase tracking-wider text-gray-400">LAYANAN CEPAT</div>
+                  <div class="font-mono text-xs font-black text-gray-900 dark:text-white">24 Jam Kilat</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTINUOUS LEFT-TO-RIGHT INFINITE MARQUEE TICKER (Matching Image 2) -->
+    <section class="py-2">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="marquee-container rounded-full py-3.5 px-6 bg-white dark:bg-[#0F1D17] border border-gray-100 dark:border-zinc-800/80 shadow-sm overflow-hidden relative transition-theme">
+          
+          <div class="marquee-track flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-gray-700 dark:text-gray-200 whitespace-nowrap">
+            <!-- Set 1 -->
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> TOLERANSI MESIN ±0.18 MM</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> OPSI KILAT 24 JAM READY</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> ENKRIPSI BERKAS DESAIN 256-BIT</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> KALIBRASI WARNA FOGRA39</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> MESIN AKTIF 4 UNIT OFFSET & DIGITAL</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> QC PRE-FLIGHT 100% GARANSI</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+
+            <!-- Duplicate Set for perfectly seamless infinite looping -->
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> TOLERANSI MESIN ±0.18 MM</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> OPSI KILAT 24 JAM READY</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> ENKRIPSI BERKAS DESAIN 256-BIT</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> KALIBRASI WARNA FOGRA39</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> MESIN AKTIF 4 UNIT OFFSET & DIGITAL</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> QC PRE-FLIGHT 100% GARANSI</span>
+            <span class="text-gray-300 dark:text-zinc-700">•</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- KALKULATOR HARGA CETAK SECTION (Matching Image 3) -->
+    <section id="kalkulator" class="py-14 sm:py-18">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
+        
+        <!-- Section Header -->
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/40">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>SIMULASI BIAYA INSTAN</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Kalkulator Harga Cetak</h2>
+          <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            Pilih jenis produk, tentukan ukuran dan bahan, lalu dapatkan perkiraan biaya langsung tanpa ribet.
+          </p>
+        </div>
+
+        <!-- 4 Product Selector Cards (Matching Image 3) -->
+        <div class="space-y-3">
+          <div class="font-mono text-[11px] font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+            PILIH JENIS PRODUK:
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Card 1: Spanduk / Banner Outdoor (Active) -->
+            <button type="button" data-product="banner" class="product-tab-btn text-left p-4 rounded-2xl border-2 transition-all duration-200 border-emerald-500 bg-emerald-50/40 dark:bg-emerald-950/20 shadow-sm relative group">
+              <div class="flex items-start justify-between mb-2">
+                <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-[#00E599]">FORMAT METER</span>
+                <span class="tab-indicator-dot w-2.5 h-2.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white">Spanduk / Banner Outdoor</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">
+                Pengerjaan: <span class="font-mono text-emerald-600 dark:text-[#00E599] font-bold">1 - 2 Hari Kerja</span>
+              </p>
+            </button>
+
+            <!-- Card 2: Stempel Cap Otomatis -->
+            <button type="button" data-product="stempel" class="product-tab-btn text-left p-4 rounded-2xl border-2 transition-all duration-200 border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] hover:border-emerald-300 dark:hover:border-zinc-700 relative group">
+              <div class="flex items-start justify-between mb-2">
+                <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-gray-400">FORMAT UNIT</span>
+                <span class="tab-indicator-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-zinc-600 mt-0.5"></span>
+              </div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white">Stempel Cap Otomatis</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">
+                Pengerjaan: <span class="font-mono text-emerald-600 dark:text-[#00E599] font-bold">1 Hari Kerja</span>
+              </p>
+            </button>
+
+            <!-- Card 3: Stiker Cutting Lembar A3+ -->
+            <button type="button" data-product="stiker" class="product-tab-btn text-left p-4 rounded-2xl border-2 transition-all duration-200 border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] hover:border-emerald-300 dark:hover:border-zinc-700 relative group">
+              <div class="flex items-start justify-between mb-2">
+                <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-gray-400">FORMAT LEMBAR</span>
+                <span class="tab-indicator-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-zinc-600 mt-0.5"></span>
+              </div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white">Stiker Cutting Lembar A3+</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">
+                Pengerjaan: <span class="font-mono text-emerald-600 dark:text-[#00E599] font-bold">1 - 2 Hari Kerja</span>
+              </p>
+            </button>
+
+            <!-- Card 4: Undangan & Brosur Offset -->
+            <button type="button" data-product="undangan" class="product-tab-btn text-left p-4 rounded-2xl border-2 transition-all duration-200 border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0F1D17] hover:border-emerald-300 dark:hover:border-zinc-700 relative group">
+              <div class="flex items-start justify-between mb-2">
+                <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-gray-400">FORMAT UNIT</span>
+                <span class="tab-indicator-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-zinc-600 mt-0.5"></span>
+              </div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white">Undangan & Brosur Offset</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">
+                Pengerjaan: <span class="font-mono text-emerald-600 dark:text-[#00E599] font-bold">2 - 3 Hari Kerja</span>
+              </p>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- 2 Columns: Form Controls (Left) & Ringkasan Estimasi (Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Left Column: Form Controls Card -->
+          <div class="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm space-y-6 transition-theme">
+            <div id="calc-form-container" class="space-y-5">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Right Column: Live Quote Summary Card (Matching Image 3) -->
+          <div class="lg:col-span-5 p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm space-y-5 sticky top-24 transition-theme">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-zinc-800/80">
+              <h3 class="font-mono text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white">RINGKASAN ESTIMASI</h3>
+              <span class="font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-[#00E599] border border-emerald-200/40">OTOMATIS</span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <div class="flex justify-between py-1">
+                <span class="text-gray-500 dark:text-gray-400">Produk:</span>
+                <span id="summary-product-name" class="font-bold text-gray-900 dark:text-white text-right">Spanduk / Banner Outdoor</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-gray-500 dark:text-gray-400">Spesifikasi:</span>
+                <span id="summary-specs" class="font-medium text-gray-800 dark:text-gray-200 text-right max-w-[220px]">2×1m • Flexi Standar 280 gsm • Mata Ayam Tiap Sudut (Termasuk)</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-gray-500 dark:text-gray-400">Jumlah:</span>
+                <span id="summary-qty" class="font-bold text-gray-900 dark:text-white">1 meter</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-gray-500 dark:text-gray-400">Estimasi Waktu:</span>
+                <span id="summary-lead-time" class="font-mono font-bold text-emerald-600 dark:text-[#00E599]">1 - 2 Hari Kerja</span>
+              </div>
+            </div>
+
+            <!-- Total Price Highlight Box (Matching Image 3) -->
+            <div class="p-4 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200/70 dark:border-emerald-800/40">
+              <div class="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">TOTAL PERKIRAAN BIAYA:</div>
+              <div id="summary-total-price" class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mt-1">Rp 50.000</div>
+            </div>
+
+            <!-- Action Button: LANJUT PESAN SEKARANG → -->
+            <button id="btn-order-whatsapp" type="button" class="w-full py-3.5 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-600 dark:bg-[#00C274] dark:hover:bg-[#00df82] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 flex items-center justify-center gap-2 transition transform active:scale-95">
+              <span>LANJUT PESAN SEKARANG</span>
+              <span class="text-sm">→</span>
+            </button>
+
+            <p class="font-mono text-[11px] text-gray-400 text-center leading-relaxed">
+              Pilihan spesifikasi langsung terbawa ke formulir pemesanan.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GALERI PORTOFOLIO SECTION (Matching Image 4) -->
+    <section id="portofolio" class="py-14 sm:py-20 border-t border-gray-100 dark:border-zinc-800/80">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <!-- Header & Category Filter Tabs -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/40">
+              <span>KURASI HASIL CETAK</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Galeri Portofolio</h2>
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-xl">
+              Sentuhan presisi pada ragam material kertas premium, stempel flash, dan banner outdoor.
+            </p>
+          </div>
+
+          <!-- Filter Pills (Matching exact layout in Image 4: Row 1: Semua, Stempel, Undangan, Spanduk | Row 2: Stiker A3+) -->
+          <div class="flex flex-col items-start md:items-end gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" data-filter="all" class="portfolio-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-sm transition">Semua</button>
+              <button type="button" data-filter="stempel" class="portfolio-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Stempel</button>
+              <button type="button" data-filter="undangan" class="portfolio-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Undangan</button>
+              <button type="button" data-filter="spanduk" class="portfolio-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Spanduk</button>
+            </div>
+            <div class="flex items-center">
+              <button type="button" data-filter="stiker" class="portfolio-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-[#0F1D17] border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition">Stiker A3+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Grid Portfolio Items (Matching 4 items in Image 4) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+          
+          <!-- Card 1: Top Left (7 columns) - Backdrop Pameran & Event Flexi Korea 440 -->
+          <div data-category="spanduk all" class="portfolio-item md:col-span-7 group rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
+            <div class="relative overflow-hidden aspect-[16/9]">
+              <img src="assets/images/portfolio-backdrop.jpg" alt="Backdrop Pameran & Event Flexi Korea 440" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 sm:p-6 space-y-1.5">
+              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
+                Backdrop Pameran & Event Flexi Korea 440
+              </h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                Kerapatan warna outdoor tahan cuaca dengan tinta UV tahan pudar hingga 2 tahun.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Top Right (5 columns) - Stempel Cap Otomatis Segel -->
+          <div data-category="stempel all" class="portfolio-item md:col-span-5 group rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
+            <div class="relative overflow-hidden aspect-[16/9]">
+              <img src="assets/images/portfolio-stempel.jpg" alt="Stempel Cap Otomatis Segel" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 sm:p-6 space-y-1.5">
+              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
+                Stempel Cap Otomatis Segel
+              </h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                Presisi garis mikro hingga 0.2 pt tanpa bleber.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: Bottom Left (4 columns) - Suite Undangan Hotprint Gold 22K -->
+          <div data-category="undangan all" class="portfolio-item md:col-span-4 group rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
+            <div class="relative overflow-hidden aspect-[4/3]">
+              <img src="assets/images/portfolio-undangan.jpg" alt="Suite Undangan Hotprint Gold 22K" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 sm:p-6 space-y-1.5">
+              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
+                Suite Undangan Hotprint Gold 22K
+              </h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                Tekstur katun tebal 600 gsm dengan tepian presisi.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4: Bottom Right (8 columns) - Label Kemasan Vinyl Kiss-Cut Waterproof -->
+          <div data-category="stiker all" class="portfolio-item md:col-span-8 group rounded-3xl overflow-hidden bg-white dark:bg-[#0F1D17] border border-gray-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition duration-300">
+            <div class="relative overflow-hidden aspect-[21/9]">
+              <img src="assets/images/portfolio-stiker.jpg" alt="Label Kemasan Vinyl Kiss-Cut Waterproof" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 sm:p-6 space-y-1.5">
+              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition">
+                Label Kemasan Vinyl Kiss-Cut Waterproof
+              </h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                Tahan air dan gores untuk botol kaca serta toples produk kuliner.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (Matching Image 5) -->
+  <footer class="relative bg-white dark:bg-[#060D0A] border-t border-gray-200/80 dark:border-zinc-800/80 pt-16 pb-8 transition-theme overflow-hidden">
+    
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- Top Grid: 3 Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12">
+        
+        <!-- Column 1: Brand Info (6 cols) -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xl font-black tracking-tight text-gray-900 dark:text-white">WIDURI</span>
+            <span class="font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/30">STUDIO CETAK</span>
+          </div>
+
+          <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
+            Platform digital printing berstandar industri grafika. Menghitung biaya instan, kurasi berkas desain resolusi penuh, dan proofing warna bersertifikat.
+          </p>
+
+          <!-- Workshop Status Pill (Matching Image 5) -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-[#00E599] border border-emerald-200/50 dark:border-emerald-800/30">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Status Workshop: Beroperasi Normal (Online)
+          </div>
+        </div>
+
+        <!-- Column 2: KATALOG LAYANAN (3 cols) -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="font-mono text-xs font-extrabold uppercase tracking-wider text-gray-900 dark:text-white">KATALOG LAYANAN</h4>
+          <ul class="space-y-2 text-xs text-gray-500 dark:text-gray-400">
+            <li><a href="#kalkulator" class="hover:text-emerald-500 transition">Spanduk Outdoor & Indoor</a></li>
+            <li><a href="#kalkulator" class="hover:text-emerald-500 transition">Stempel Flash Otomatis</a></li>
+            <li><a href="#kalkulator" class="hover:text-emerald-500 transition">Stiker Label Vinyl Lembar A3+</a></li>
+            <li><a href="#kalkulator" class="hover:text-emerald-500 transition">Undangan & Brosur Premium</a></li>
+            <li><a href="#kalkulator" class="hover:text-emerald-500 transition">Bantuan Setting File Desain</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: WORKSHOP & KONTAK (4 cols) -->
+        <div class="md:col-span-4 space-y-3">
+          <h4 class="font-mono text-xs font-extrabold uppercase tracking-wider text-gray-900 dark:text-white">WORKSHOP & KONTAK</h4>
+          <ul class="space-y-2.5 text-xs text-gray-500 dark:text-gray-400">
+            <li class="flex items-start gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Jl. Percetakan Industri No. 88, Studio Grafika</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>+62 812-3456-7890</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Senin - Sabtu: 08:30 - 20:00 WIB</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- GIANT OUTLINE WATERMARK "WIDURI" (Matching Image 5) -->
+      <div class="py-12 text-center flex items-center justify-center overflow-hidden">
+        <div class="widuri-watermark select-none font-black tracking-tight">
+          WIDURI
+        </div>
+      </div>
+
+      <!-- Bottom Bar: Copyright & Certifications (Matching Image 5) -->
+      <div class="pt-6 border-t border-gray-100 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] text-gray-400">
+        <div>
+          © 2026 WIDURI Studio Cetak. Hak cipta dilindungi undang-undang.
+        </div>
+        <div class="flex items-center gap-5">
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ISO 12647-2 Certified</span>
+          <span>256-Bit Raw File Security</span>
+        </div>
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON (Requested: mengambang di kanan bawah) -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center group">
+    <!-- Hover Tooltip Label -->
+    <div class="hidden sm:block mr-3 px-3 py-1.5 rounded-xl bg-gray-900/95 dark:bg-white/95 text-white dark:text-gray-900 font-mono text-xs font-semibold shadow-lg backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+      Chat Kami di WhatsApp
+    </div>
+
+    <!-- Floating Circular Button with Pulse -->
+    <button id="floating-wa-btn" type="button" aria-label="Hubungi kami via WhatsApp" 
+      class="wa-floating-btn w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>

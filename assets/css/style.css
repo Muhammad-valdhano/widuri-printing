@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-main: #F8FAF9;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F3F7F5;
+  --bg-badge: #E6F8F0;
+  --border-subtle: #E5EBE8;
+  --border-focus: #00C274;
+  --text-main: #0F1714;
+  --text-muted: #566860;
+  --text-dim: #84968E;
+  --brand-mint: #00C274;
+  --brand-mint-hover: #00AB66;
+  --brand-mint-glow: rgba(0, 194, 116, 0.16);
+  --grid-line: rgba(0, 194, 116, 0.05);
+  --header-bg: rgba(255, 255, 255, 0.92);
+}
+
+.dark {
+  --bg-main: #08110D;
+  --bg-card: #0F1D17;
+  --bg-card-subtle: #14271F;
+  --bg-badge: rgba(0, 229, 153, 0.12);
+  --border-subtle: #192D23;
+  --border-focus: #00E599;
+  --text-main: #F4FBF7;
+  --text-muted: #9BB0A6;
+  --text-dim: #5D7368;
+  --brand-mint: #00E599;
+  --brand-mint-hover: #00C885;
+  --brand-mint-glow: rgba(0, 229, 153, 0.2);
+  --grid-line: rgba(0, 229, 153, 0.04);
+  --header-bg: rgba(15, 29, 23, 0.92);
+}
+
+* {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Subtle Vertical Grid Lines Overlay */
+.grid-bg-overlay {
+  background-size: 72px 72px;
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 100%);
+}
+
+/* Hero Showcase Image Asymmetric Corner */
+.hero-image-corner {
+  border-top-right-radius: 120px;
+  border-top-left-radius: 28px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+}
+
+@media (max-width: 640px) {
+  .hero-image-corner {
+    border-top-right-radius: 70px;
+  }
+}
+
+/* Glowing Ambient Gradients */
+.hero-radial-glow {
+  background: radial-gradient(circle at 60% 40%, var(--brand-mint-glow) 0%, transparent 70%);
+}
+
+/* Marquee continuous scroll from LEFT to RIGHT as user requested */
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-ltr 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Watermark typography in footer */
+.widuri-watermark {
+  font-size: clamp(4.5rem, 16vw, 13rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0, 194, 116, 0.4);
+  background: linear-gradient(180deg, rgba(0, 194, 116, 0.22) 0%, rgba(0, 194, 116, 0.02) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+  line-height: 0.88;
+}
+
+.dark .widuri-watermark {
+  -webkit-text-stroke: 2px rgba(0, 229, 153, 0.45);
+  background: linear-gradient(180deg, rgba(0, 229, 153, 0.25) 0%, rgba(0, 229, 153, 0.03) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 50px rgba(0, 229, 153, 0.16);
+}
+
+/* WhatsApp Floating Button Pulse */
+@keyframes wa-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.wa-floating-btn {
+  animation: wa-pulse 2.2s infinite;
+}
+
+/* Custom transitions */
+.transition-theme {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-mint);
+}
