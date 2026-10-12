@@ -658,9 +658,44 @@ function initPortfolio() {
   });
 }
 
+// Mobile Navigation Drawer Toggle
+function initMobileMenu() {
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const dropdown = document.getElementById('mobile-menu-dropdown');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (!menuBtn || !dropdown) return;
+
+  function toggleMenu() {
+    const isHidden = dropdown.classList.contains('hidden');
+    if (isHidden) {
+      dropdown.classList.remove('hidden');
+      if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+      if (closeIcon) closeIcon.classList.remove('hidden');
+    } else {
+      dropdown.classList.add('hidden');
+      if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+      if (closeIcon) closeIcon.classList.add('hidden');
+    }
+  }
+
+  menuBtn.addEventListener('click', toggleMenu);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      dropdown.classList.add('hidden');
+      if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+      if (closeIcon) closeIcon.classList.add('hidden');
+    });
+  });
+}
+
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initMobileMenu();
   
   const toggleBtn = document.getElementById('theme-toggle-btn');
   if (toggleBtn) {
