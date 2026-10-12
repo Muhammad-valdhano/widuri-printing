@@ -626,13 +626,13 @@ function renderProductForm(productKey) {
   }
 }
 
-// Portfolio Data Store (Real photos uploaded from workshop)
+// Portfolio Data Store (Real photos uploaded from workshop - 8 curated products)
 const portfolioData = [
   {
     id: 1,
     title: 'Signage & Huruf Timbul Akrilik Gedung SMK Muhammadiyah Gisting',
-    category: 'signage',
-    categoryName: 'Signage & Plang',
+    category: 'akrilik',
+    categoryName: 'Signage & Plakat',
     description: 'Plang identitas gedung bertingkat presisi tinggi dengan huruf timbul akrilik laser-cut dan plat solid tahan terpaan cuaca outdoor.',
     tag: 'Akrilik Solid • Laser Cut',
     image: 'assets/images/portfolio-signage-gisting.jpg',
@@ -677,6 +677,37 @@ const portfolioData = [
     tag: 'Jasmine 230gsm • Poly Emas Mewah',
     image: 'assets/images/portfolio-undangan-nikah.jpg',
     badge: 'Wedding Suite'
+  },
+  {
+    id: 6,
+    title: 'ID Card Visitor & Gantungan Yoyo Clip PT Japfa Comfeed',
+    category: 'idcard',
+    categoryName: 'ID Card & Merchandise',
+    description: 'Kartu tanda pengenal visitor tamu instansi/perusahaan bahan PVC glossy tebal anti patah dengan cetak UV tajam, dilengkapi gantungan yoyo putar logo custom.',
+    tag: 'PVC Card Glossy • Yoyo Clip Retractable',
+    image: 'assets/images/portfolio-idcard-japfa.jpg',
+    badge: 'PT Japfa Comfeed'
+  },
+  {
+    id: 7,
+    title: 'Plakat Akrilik Kenang-Kenangan KKN & PPL STIT Gisting',
+    category: 'akrilik',
+    categoryName: 'Signage & Plakat',
+    description: 'Vandel plakat penghargaan dan cinderamata akrilik bening pemotongan laser bersudut presisi, cetak grafir UV nama mahasiswa dan ornamen motif khas kampus.',
+    tag: 'Akrilik Bening 5mm • Laser Cut & UV Print',
+    image: 'assets/images/portfolio-plakat-akrilik.jpg',
+    badge: 'STIT Tanggamus'
+  },
+  {
+    id: 8,
+    title: 'Papan Nama Dada Akrilik Resin Cembung Magnet',
+    category: 'idcard',
+    categoryName: 'ID Card & Merchandise',
+    description: 'Name tag dada dinas & sekolah berbahan akrilik hitam dengan lapisan resin cembung mengkilap tahan gores, logo instansi full-color, dan pengait magnet kuat tanpa merusak kain baju. Tersedia juga opsi kustom bentuk Menara Siger Lampung.',
+    tag: 'Akrilik Hitam • Resin Cembung • Magnet',
+    image: 'assets/images/portfolio-nametag-resin.jpg',
+    secondaryImage: 'assets/images/portfolio-nametag-siger.jpg',
+    badge: 'Name Tag Dinas & Sekolah'
   }
 ];
 
@@ -892,6 +923,8 @@ function openPortfolioModal(item) {
   const modalTitle = document.getElementById('portfolio-modal-title');
   const modalDesc = document.getElementById('portfolio-modal-desc');
   const modalWaBtn = document.getElementById('portfolio-modal-wa-btn');
+  const variantsContainer = document.getElementById('portfolio-modal-variants');
+  const thumbsContainer = document.getElementById('portfolio-modal-thumbs');
 
   if (!modal) return;
 
@@ -905,6 +938,37 @@ function openPortfolioModal(item) {
   if (modalDesc) modalDesc.textContent = item.description;
   if (modalWaBtn) {
     modalWaBtn.href = getWhatsAppUrl(`Halo WIDURI Studio Cetak, saya tertarik dengan hasil cetak di portofolio:\n*${item.title}*\n\nBisa minta informasi spesifikasi dan estimasi harga untuk pesanan serupa? Terima kasih.`);
+  }
+
+  // Handle secondary photo thumbnail toggle (e.g. Siger Lampung name tag variant)
+  if (variantsContainer && thumbsContainer) {
+    if (item.secondaryImage) {
+      variantsContainer.classList.remove('hidden');
+      thumbsContainer.innerHTML = `
+        <button type="button" class="variant-thumb-btn border-2 border-emerald-500 rounded-lg overflow-hidden w-12 h-12 shadow-sm transition transform hover:scale-105" data-img="${item.image}" aria-label="Lihat Model Standar">
+          <img src="${item.image}" alt="Model Standar" class="w-full h-full object-cover">
+        </button>
+        <button type="button" class="variant-thumb-btn border-2 border-transparent hover:border-emerald-400 rounded-lg overflow-hidden w-12 h-12 shadow-sm transition transform hover:scale-105" data-img="${item.secondaryImage}" aria-label="Lihat Model Siger Lampung">
+          <img src="${item.secondaryImage}" alt="Model Siger Lampung" class="w-full h-full object-cover">
+        </button>
+        <span class="text-[11px] font-mono text-gray-500 dark:text-gray-400">Klik untuk switch foto varian Siger Lampung</span>
+      `;
+      thumbsContainer.querySelectorAll('.variant-thumb-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const imgSrc = btn.getAttribute('data-img');
+          if (modalImg) modalImg.src = imgSrc;
+          thumbsContainer.querySelectorAll('.variant-thumb-btn').forEach(b => {
+            b.classList.remove('border-emerald-500');
+            b.classList.add('border-transparent');
+          });
+          btn.classList.add('border-emerald-500');
+          btn.classList.remove('border-transparent');
+        });
+      });
+    } else {
+      variantsContainer.classList.add('hidden');
+      thumbsContainer.innerHTML = '';
+    }
   }
 
   modal.classList.remove('hidden');
