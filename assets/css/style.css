@@ -44,7 +44,7 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -52,10 +52,24 @@ body {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Dedicated Sticky Navbar Styling */
+.sticky-navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0.75rem;
+  z-index: 50;
+}
+
+@media (min-width: 640px) {
+  .sticky-navbar {
+    top: 1rem;
+  }
 }
 
 /* Hide scrollbars utility for horizontal swipable pills */
